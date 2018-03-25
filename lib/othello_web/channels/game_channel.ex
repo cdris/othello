@@ -49,7 +49,7 @@ defmodule OthelloWeb.GameChannel do
     AllGames.save(id, game)
 
     cond do
-      Game.finished(game) ->
+      game.finished ->
         delete_game(id)
         broadcast!(socket, "finished", %{game: Game.client_view(game)})
       true -> broadcast!(socket, "playing", %{game: Game.client_view(game)})

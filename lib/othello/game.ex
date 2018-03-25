@@ -4,7 +4,8 @@ defmodule Othello.Game do
     %{
       tiles: new_tiles(),
       player: 1,
-      players: 0
+      players: 0,
+      finished: false
     }
   end
 
@@ -23,7 +24,12 @@ defmodule Othello.Game do
     case game.players do
       2 -> {"observer", game}
       players ->
-        {players + 1, %{tiles: game.tiles, player: game.player, players: players + 1}}
+        {players + 1, %{
+          tiles: game.tiles,
+          player: game.player,
+          players: players + 1,
+          finished: game.finished
+        }}
     end
   end
 
@@ -36,10 +42,6 @@ defmodule Othello.Game do
       tiles: game.tiles,
       player: game.player
     }
-  end
-
-  def finished(game) do
-    not Enum.any?(game.tiles, fn(tile) -> tile == 0 end)
   end
 
   def place_tile(game, player, idx) do
@@ -67,8 +69,15 @@ defmodule Othello.Game do
     end
   end
 
+  defp any_valid(game) do
+    Enum.any?(0..63, fn(idx) ->
+      Enum.any?(valid_move(game, game.player, idx),
+                fn({_, v}) -> v end)
+    end)
+  end
+
   defp update_game(game, idx, dirs) do
-    game
+    game = game
     |> Map.put(:tiles, List.replace_at(game.tiles, idx, game.player))
     |> update_dir(idx, &top/1, Map.get(dirs, :top))
     |> update_dir(idx, &bottom/1, Map.get(dirs, :bottom))
@@ -79,6 +88,16 @@ defmodule Othello.Game do
     |> update_dir(idx, &bottom_left/1, Map.get(dirs, :bottom_left))
     |> update_dir(idx, &bottom_right/1, Map.get(dirs, :bottom_right))
     |> Map.put(:player, next_player(game.player))
+
+    cond do
+      any_valid(game) -> game
+      true ->
+        game = Map.put(game, :player, next_player(game.player))
+        cond do
+          any_valid(game) -> game
+          true -> Map.put(game, :finished, true)
+        end
+    end
   end
 
   defp update_dir(game, idx, dir, condition) do
