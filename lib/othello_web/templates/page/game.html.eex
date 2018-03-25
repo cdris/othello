@@ -1,0 +1,6 @@
+<script>
+  window.gameName = "<%= @game %>"
+</script>
+<div id="game">
+  Game not loaded...
+<div>
