@@ -135,9 +135,8 @@ class OthelloGame extends React.Component {
     let toggleLink = this.toggleLink.bind(this);
     let toggleInstructions = this.toggleInstructions.bind(this);
 
-    let tiles = [];
-    for (var i = 0; i < this.state.tiles.length; i++) {
-      let color = this.getTileColor(this.state.tiles[i]);
+    let tiles = _.map(this.state.tiles, (tile, i) => {
+      let color = this.getTileColor(tile);
       let hover = false;
       let click = (x) => { };
       if (color == "" &&
@@ -147,8 +146,8 @@ class OthelloGame extends React.Component {
         hover = true;
         click = this.clickTile.bind(this);
       }
-      tiles.push(<Tile color={color} click={click} hover={hover} key={i} id={i}/>);
-    }
+      return <Tile color={color} click={click} hover={hover} key={i} id={i}/>;
+    });
 
     return (
       <div>
