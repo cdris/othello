@@ -14,7 +14,7 @@ The game starts with four alternating black and white discs in the center of the
 On your turn, you must place a new piece such that you surround at least one of your opponent's pieces. A piece is surrounded if you can make a straight line from one of your existing pieces through the opponent's piece to the new piece you are placing. Once you have placed your piece in a valid move, all surrounded opponent pieces will be flipped to your color.
 
 #### Winning the Game
-The game ends when the board is filled. At the end of the game, the number of pieces of each player's color are counted. The player with the most pieces in their color is the winner.
+The game ends when there are no more valid moves. At the end of the game, the number of pieces of each player's color are counted. The player with the most pieces in their color is the winner.
 
 ### The Lobby Page
 The Othello lobby has the following three cards:

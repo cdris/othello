@@ -9,7 +9,7 @@ defmodule Othello.Game do
     }
   end
 
-  def new_tiles do
+  defp new_tiles do
     [0,0,0,0,0,0,0,0,
      0,0,0,0,0,0,0,0,
      0,0,0,0,0,0,0,0,

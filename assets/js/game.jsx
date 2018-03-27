@@ -222,7 +222,7 @@ class OthelloGame extends React.Component {
             <input readonly
                    className="form-control"
                    type="text"
-                   value={`http:\/\/cdriskill.com/game/${window.gameName}`} />
+                   value={`http:\/\/othello.cdriskill.com/game/${window.gameName}`} />
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={toggleLink}>Close</Button>
